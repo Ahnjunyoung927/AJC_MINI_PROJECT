@@ -1,5 +1,52 @@
 package com.kh.spring.review.model.service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.RowBounds;
+import org.springframework.stereotype.Service;
+
+import com.kh.spring.exception.InvalidArgumentsException;
+import com.kh.spring.review.model.dao.ReviewMapper;
+import com.kh.spring.review.model.dto.ReviewDTO;
+import com.kh.spring.util.PageInfo;
+import com.kh.spring.util.Pagination;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service
+@RequiredArgsConstructor
 public class ReviewServiceImpl implements ReviewService {
 
+	private final ReviewMapper reviewMapper;
+	private final Pagination pagenation;
+	
+	@Override
+	public Map<String, Object> findAllReview(int page) {
+		
+		Map<String, Object> map = new HashMap();
+		List<ReviewDTO> reviews = new ArrayList();
+		
+		if(page < 1) {
+			throw new InvalidArgumentsException("잘못된 접근입니다.");
+		}
+		
+		int count = reviewMapper.selectTotalCount();
+		log.info("총 게시글 개수 : {}", count);
+		PageInfo pi = pagenation.getPageInfo(count, page, 5, 5);
+		
+		if(count > 0) {
+			RowBounds rb = new RowBounds((page-1) * 5, 5);
+			reviews = reviewMapper.findAllReview(rb);
+		}
+		map.put("pi", pi);
+		map.put("reviews", reviews);
+		return map;
+		
+	}
+	
 }

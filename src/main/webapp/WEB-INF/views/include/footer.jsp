@@ -11,6 +11,11 @@
     <script src="<c:url value="/resources/js/js.js" />"></script>
     
 </head>
+<style>
+	footer {
+		text-align : center;
+	}
+</style>
 <body>
     
   
