@@ -15,9 +15,10 @@ import lombok.ToString;
 
 public class ReviewDTO {
 		private int reviewNo;
-		private Date reviewWriteDate;
-		private String reviewContent;
-		private String reviewStatus;
 		private int memberNo;
-		private int youtuberNo;
+		private int createNo;
+		private String reviewName;
+		private String reviewContent;
+		private Date reviewWriteDate;
+		private String reviewStatus;
 }

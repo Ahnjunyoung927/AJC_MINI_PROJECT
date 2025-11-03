@@ -12,4 +12,9 @@ public interface ReviewMapper {
 
 	List<ReviewDTO> findAllReview(RowBounds rb);
 
+	int saveReview(ReviewDTO review);
+
+	ReviewDTO findByReviewNo(int review);
+	
+	
 }

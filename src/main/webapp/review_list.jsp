@@ -181,15 +181,79 @@ body {
 
 		<!-- 필터 버튼 영역 -->
 		<div class="filter-buttons">
+			<button onclick="getReviews();">최신 리뷰 </button>
+			
+			<!--<script>
+				pageNo = 1;
+				$(function() {
+					getReviews();
+				})
+				
+				function detailReview(num) {
+					location.href=`
+				}
+				
+				function getReviews() {
+					$.ajax({
+						url : `/review_list`,
+						data : {
+							pageNo : pageNo
+						},
+						success : response => {
+							pageNo++
+							console.log(response);
+							
+							const reviews = response.get
+							
+							const result = reviews.map(e => `
+									<div
+										
+							)							
+						}
+					})
+				}
+							
+			</script>-->
+			
+			
 			<button onclick="goToPage('latest.jsp')">🕓 최신 리뷰</button>
 			<button onclick="goToPage('top_liked.jsp')">❤️ 가장 많이 좋아요를 받은 리뷰</button>
 			<button>⭐ 별점</button>
-			<button onclick="goToPage('all_review.jsp')">📋 모든 리뷰</button>
+			<button onclick="goToPage('reviewAll.jsp')">📋 모든 리뷰</button>
 		</div>
 
 		<!-- 리뷰 카드 리스트 -->
+		
 		<section class="review-grid">
-
+			<c:choose>
+			<c:when test="${ not empty map.reviews }">
+			<c:forEach var="review" items="${ map.reviews }">
+				<article class="review-card">
+					<div class="review-header">
+						<div class="channel-info">
+							<img src="profile1.png" alt="채널 아이콘" class="channel-icon" />
+							<div>
+								<h3 class="channel-name">${ review.reviewNo }</h3>
+								<p class="reviewer">${ review.reviewWriter }</p>
+							</div>
+						</div>
+						<button class="like-btn">좋아요♡</button>
+					</div>
+	
+					<div class="review-content">
+						<p>${ review.reviewContent }</p>
+					</div>
+	
+					<div class="review-tags">
+						<span>리뷰 태그</span> <span>리뷰 태그2</span> <span>리뷰 태그3</span> <span>리뷰
+							태그4</span>
+					</div>
+	
+					<div class="review-date">${ review.reviewWriteDate }</div>
+				</article>
+			</c:forEach>
+			</c:when>	
+			</c:choose>
 			<!-- 카드 1 -->
 			<article class="review-card">
 				<div class="review-header">

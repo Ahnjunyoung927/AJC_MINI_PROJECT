@@ -4,11 +4,54 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="reviewMapper">
 
+	<select id="findAllReview" resultType="com.kh.spring.review.model.dto.ReviewDTO">
+		SELECT
+			   REVIEW_NO reviewNo
+			 , MEMBER_NO memberNo
+			 , CREATOR_NO createNo
+			 , REVIEW_NAME reviewName
+			 , REVIEW_CONTENT reviewContent
+			 , REVIEW_DATE reviewDate
+			 , REVIEW_STATUS  reviewStatus
+		  FROM
+		       TB_REVIEW
+		 WHERE
+		       STATUS = 'Y'
+		 ORDER
+		    BY
+		       REVIEW_NO DESC 
+	</select>
 	
+	<insert id="saveReview" parameterType="com.kh.spring.review.model.dto.ReviewDTO">
+		INSERT
+		  INTO
+		       TB_REVIEW
+		VALUES
+		       (
+		       SEQ_RNO.NEXTVAL
+		     , #{memberNo}
+		     , #{createNo}
+		     , #{ReviewName}
+		     , #{ReviewContent}
+		     , DEFAULT
+		     , DEFAULT
+		       )
+	</insert>
 	
-	
-	
-	
-	
-
+	<select id="findByReviewNo" parameterType="int" resultType="com.kh.spring.review.model.dto.ReviewDTO">
+		SELECT
+			   REVIEW_NO reviewNo
+			 , MEMBER_NO memberNo
+			 , CREATE_NO createNo
+			 , REVIEW_NAME reviewName
+			 , REVIEW_CONTENT reviewContent
+			 , REVIEW_DATE reviewDate
+			 , REVIEW_STATUS reviewStatus
+		  FROM
+		       TB_REVIEW
+		 WHERE
+		       REVIEW_NO = #{reviewNo}
+		   AND
+		       REVIEW_STATUS = 'Y'
+	</select>
 </mapper>

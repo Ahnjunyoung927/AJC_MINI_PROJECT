@@ -5,10 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.security.sasl.AuthenticationException;
+import javax.servlet.http.HttpSession;
+
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
 import com.kh.spring.exception.InvalidArgumentsException;
+import com.kh.spring.member.model.dto.MemberDTO;
 import com.kh.spring.review.model.dao.ReviewMapper;
 import com.kh.spring.review.model.dto.ReviewDTO;
 import com.kh.spring.util.PageInfo;
@@ -49,4 +53,63 @@ public class ReviewServiceImpl implements ReviewService {
 		
 	}
 	
+	private void validateUser(ReviewDTO review, HttpSession session) {
+		
+		String ReviewName = review.getReviewName();
+		MemberDTO loginMember = ((MemberDTO)session.getAttribute("loginMember"));
+		if(loginMember == null || !ReviewName.equals(loginMember.getUserId())) {
+			throw new AuthenticationException("권한 없는 접근입니다.");
+		}
+		
+	}
+	
+	private void validateContent(ReviewDTO review) {
+		if(review.getReviewContent().trim().isEmpty()) {
+			throw new InvalidArgumentsException("유효하지 않은 요청입니다.");
+		}
+	
+	}
+	
+	public int saveReview(ReviewDTO review, HttpSession session) {
+		
+		// 1번 권한 검증
+		validateUser(review, session);
+		
+		// 2번 값에 대한 유효성 검증
+		validateContent(review);
+		
+		int result = ReviewMapper.saveReview(review);
+		
+		if(result != 1) {
+			throw new RuntimeException("에러 발생 review를 받지 못함");
+		}
+		return result;
+	}
+	
+	@Override
+	public int deleteByReviewNo(int reviewNo) {
+		return 0;
+	}
+	
+	@Override
+	public int update(ReviewDTO review) {
+		return 0;
+	}
 }
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
