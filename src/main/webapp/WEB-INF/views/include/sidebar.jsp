@@ -27,7 +27,9 @@
             <a href="index.jsp">홈</a>
             <a href="youtuber_list.jsp">유투버</a>
             <a href="">리뷰</a>
-            <a href="">아무거나</a>
+            <c:if test="${not empty sessionScope.loginMember and sessionScope.loginMember.adminYn eq 'Y'}" >
+            <a href="${pageContext.request.contextPath}/reports">관리자</a>
+            </c:if>
         </div>
     </div>
 </nav>

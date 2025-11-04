@@ -12,11 +12,12 @@
     
 </head>
 <body>
-    
-  
 
 <footer>
-    © 2025 YoutuberScope. All rights reserved.
+	<hr>
+	<div class="footer-main">
+    	© 2025 YoutuberScope. All rights reserved.
+    </div>
 </footer>  
     
     
