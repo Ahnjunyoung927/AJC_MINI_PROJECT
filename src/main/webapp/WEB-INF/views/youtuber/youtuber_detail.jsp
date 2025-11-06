@@ -77,8 +77,8 @@
                         </p>
                         
                         <button class="like-btn" style="margin-top: 15px;">
-                            <c:if test="${isBookmarked eq true}">★ 북마크 해제</c:if>
-                            <c:if test="${isBookmarked ne true}">☆ 북마크 추가</c:if>
+                            <c:if test="${isBookmarked eq true}">★ 즐겨찾기 해제</c:if>
+                            <c:if test="${isBookmarked ne true}">☆ 즐겨찾기 추가</c:if>
                         </button>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                                     <img src="${pageContext.request.contextPath}/assets/images/user_icon.png" alt="리뷰어 아이콘" class="channel-icon" />
                                     <div>
                                         <h3 class="channel-name">${review.reviewName}</h3>
-                                        <p class="reviewer">${review.reviewerId != null ? review.reviewerId : '익명 사용자'}</p>
+                                        <p class="reviewer">${review.reviewerId != null ? review.reviewerId : 익명}</p>
                                     </div>
                                 </div>
                                 <button class="like-btn">

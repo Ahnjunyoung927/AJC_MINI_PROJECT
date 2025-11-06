@@ -115,27 +115,22 @@
             <form action="${pageContext.request.contextPath}/youtuber/add" method="POST" enctype="multipart/form-data">
                 
                 <div class="form-group">
-                    <label for="creatorName">유튜버 이름 (CREATOR_NAME):</label>
+                    <label for="creatorName">유튜버 이름:</label>
                     <input type="text" id="creatorName" name="creatorName" placeholder="예: 승철티비" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="subscrCount">구독자 수 (SUBSCR_COUNT):</label>
+                    <label for="subscrCount">구독자 수:</label>
                     <input type="number" id="subscrCount" name="subscrCount" placeholder="예: 100000 (숫자만 입력)" required min="0">
                 </div>
                 
                 <div class="form-group">
-                    <label for="nationCode">국가 코드 (NATION_CODE):</label>
+                    <label for="nationCode">국가 코드:</label>
                     <input type="text" id="nationCode" name="nationCode" placeholder="예: KR (한국), US (미국), JP (일본)">
                 </div>
 
-                <!-- 이미지 첨부 필드 -->
-                <div class="form-group">
-                    <label for="profileImage">프로필 사진 (PROFILE_IMG):</label>
-                    <input type="file" id="profileImage" name="profileImage" accept="image/*" required>
-                </div>
                 
-                <button type="submit">유튜버 정보 등록하기</button>
+                <button style="color: blue" type="submit">유튜버 정보 등록하기</button>
             </form>
         </div>
     </main>

@@ -1,7 +1,7 @@
 package com.kh.spring.youtuber.controller;
 
 import java.util.List;
-import java.util.Map; 
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.spring.youtuber.model.dto.YoutuberDTO;
 import com.kh.spring.youtuber.model.service.YoutuberService;
@@ -26,7 +27,7 @@ public class YoutuberController {
 
     /**
      * 1. 유튜버 목록 페이지
-     * URL: /youtuber/list
+     * @return: URL /youtuber/list
      */
     @GetMapping("/list")
     public String showListPage(@RequestParam(value = "page", defaultValue = "1") int page, Model model) {
@@ -41,7 +42,7 @@ public class YoutuberController {
 
     /**
      * 2. 유튜버 상세 페이지
-     * URL: /youtuber/detail?no=#{youtuberNo}
+     * @return: URL /youtuber/detail?no=#{youtuberNo}
      */
     @GetMapping("/detail")
     public String showYoutuberDetail(@RequestParam("no") int youtuberNo, Model model) {
@@ -56,7 +57,7 @@ public class YoutuberController {
     
     /**
      * 3. 유튜버 등록 폼 
-     * URL: /youtuber/add
+     * @return: URL /youtuber/add
      */
     @GetMapping("/add")
     public String showCreatorForm() {
@@ -65,17 +66,26 @@ public class YoutuberController {
 
     /**
      * 4. 유튜버 등록 처리 
-     * URL: /youtuber/add (POST)
+     * @return: URL /youtuber/add
      */
     @PostMapping("/add")
-    public String insertYouber(YoutuberDTO youtuber) {
+    public String insertYouber( @RequestParam("creatorName") String creatorName,
+					            @RequestParam("subscrCount") int subscrCount, 
+					            @RequestParam("nationCode") String nationCode,
+					            YoutuberDTO youtuber) {
+    	
+        youtuber.setYoutuberName(creatorName);
+        youtuber.setSubscribe(subscrCount); 
+        youtuber.setNationCode(nationCode);
+ 
         youtuberService.insertCreator(youtuber);
-        return "redirect:/youtuber/list"; 
+        
+        return "redirect:/youtuber/list";
     }
 
     /**
      * 5. 유튜버 랭킹 조회
-     * URL: /youtuber/rank
+     * @return: URL /youtuber/rank
      */
     @GetMapping("/rank")
     public String showByYoutuberRank(Model model) {

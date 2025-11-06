@@ -34,5 +34,8 @@ public interface YoutuberService {
      * @return  0 또는 1
      */
     int insertCreator(YoutuberDTO youtuber);
+    
+    
+    
 
 }

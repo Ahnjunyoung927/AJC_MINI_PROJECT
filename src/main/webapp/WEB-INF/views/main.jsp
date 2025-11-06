@@ -75,7 +75,7 @@
 					</c:when>
 					<c:otherwise>
 						<div class="ranking-item">
-							<p>데이터를 불러오는 데 실패했거나 순위가 없습니다.</p>
+							<p>에~ 실패했지롱.</p>
 						</div>
 					</c:otherwise>
 				</c:choose>

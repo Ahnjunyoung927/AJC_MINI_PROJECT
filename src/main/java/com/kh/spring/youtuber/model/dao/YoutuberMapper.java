@@ -16,23 +16,25 @@ public interface YoutuberMapper {
     int selectListCount();
 
 
-    @Select("SELECT CREATOR_NO AS youtuberNo, CREATOR_NAME AS youtuberName, SUBSCR_COUNT AS subscribe " +
-            "FROM TB_CREATOR " +
-            "WHERE CREATOR_STATUS = 'N' " +
-            "ORDER BY CREATOR_NO DESC")
+    @Select("SELECT "
+    		+ "CREATOR_NO AS youtuberNo, "
+    		+ "CREATOR_NAME AS youtuberName, "
+    		+ "SUBSCR_COUNT AS subscribe "
+            +"FROM TB_CREATOR " 
+            +"WHERE CREATOR_STATUS = 'N' " 
+            +"ORDER BY CREATOR_NO DESC")
     List<YoutuberDTO> selectAllYoutubers(RowBounds rowBounds);
 
 
-    @Select("SELECT " +
-            "    C.CREATOR_NO AS youtuberNo, " +
-            "    C.CREATOR_NAME AS youtuberName, " +
-            "    C.SUBSCR_COUNT AS subscribe, " +
-            "    C.CREATOR_STATUS AS status, " +
-            "    C.NATION_CODE AS nationCode, " +
-            "    N.NATION_NAME AS nationName " +
-            "FROM TB_CREATOR C " +
-            "LEFT JOIN TB_NATION N ON (C.NATION_CODE = N.NATION_CODE) " +
-            "WHERE C.CREATOR_NO = #{youtuberNo}")
+    @Select("SELECT " 
+            +"C.CREATOR_NO AS youtuberNo, " 
+            +"C.CREATOR_NAME AS youtuberName, "
+            +"C.SUBSCR_COUNT AS subscribe, " 
+            +"C.CREATOR_STATUS AS status, " 
+            +"C.NATION_CODE AS nationCode, " 
+            +"FROM TB_CREATOR C " 
+            +"LEFT JOIN TB_NATION N ON (C.NATION_CODE = N.NATION_CODE) " 
+            +"WHERE C.CREATOR_NO = #{youtuberNo}")
     YoutuberDTO selectYoutuberByNo(int youtuberNo);
 
     
@@ -55,12 +57,15 @@ public interface YoutuberMapper {
     List<YoutuberDTO> youtuberSelectByRank();
 
     @Insert("""
-            INSERT INTO TB_CREATOR (
-             CREATOR_NO, 
-             CREATOR_NAME, 
-             SUBSCR_COUNT, 
-             NATION_CODE
-            ) VALUES (
+            INSERT 
+              INTO 
+                   TB_CREATOR (
+	             	CREATOR_NO, 
+	             	CREATOR_NAME, 
+	             	SUBSCR_COUNT, 
+	             	NATION_CODE
+    						  ) 
+            VALUES (
              SEQ_CREATOR_NO.NEXTVAL, 
              #{youtuberName}, 
              #{subscribe}, 
