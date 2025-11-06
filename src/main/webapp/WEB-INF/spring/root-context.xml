@@ -19,8 +19,8 @@
 		  id="dataSource" destroy-method="close">
 		  <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
 		  <property name="url" value="jdbc:oracle:thin:@115.90.212.20:10000:xe" />
-		  <property name="username" value="AJY15" />
-		  <property name="password" value="AJY151234" />
+		  <property name="username" value="PSM06" />
+		  <property name="password" value="PSM061234" />
 	</bean>
 	<!-- 
 		DataSource dataSource = new BasicDataSource();

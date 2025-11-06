@@ -2,13 +2,22 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="reviewMapper">
+<mapper namespace="com.kh.spring.review.model.dao.ReviewMapper">
+
+	<select id="selectTotalCount" resultType="int">
+		SELECT
+			   COUNT(*)
+		  FROM
+		       TB_REVIEW
+		 WHERE
+		       REVIEW_STATUS = 'Y'
+	</select>
 
 	<select id="findAllReview" resultType="com.kh.spring.review.model.dto.ReviewDTO">
 		SELECT
 			   REVIEW_NO reviewNo
 			 , MEMBER_NO memberNo
-			 , CREATOR_NO createNo
+			 , CREATOR_NO creatorNo
 			 , REVIEW_NAME reviewName
 			 , REVIEW_CONTENT reviewContent
 			 , REVIEW_DATE reviewDate
@@ -16,7 +25,7 @@
 		  FROM
 		       TB_REVIEW
 		 WHERE
-		       STATUS = 'Y'
+		       REVIEW_STATUS = 'Y'
 		 ORDER
 		    BY
 		       REVIEW_NO DESC 
@@ -30,7 +39,7 @@
 		       (
 		       SEQ_RNO.NEXTVAL
 		     , #{memberNo}
-		     , #{createNo}
+		     , #{creatorNo}
 		     , #{ReviewName}
 		     , #{ReviewContent}
 		     , DEFAULT
@@ -42,7 +51,7 @@
 		SELECT
 			   REVIEW_NO reviewNo
 			 , MEMBER_NO memberNo
-			 , CREATE_NO createNo
+			 , CREATOR_NO creatorNo
 			 , REVIEW_NAME reviewName
 			 , REVIEW_CONTENT reviewContent
 			 , REVIEW_DATE reviewDate

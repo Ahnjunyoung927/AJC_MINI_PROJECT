@@ -26,7 +26,7 @@
         <div class="side-nav">
             <a href="index.jsp">홈</a>
             <a href="youtuber_list.jsp">유투버</a>
-            <a href="review_list.jsp">리뷰</a>
+            <a href="${pageContext.request.contextPath}/reviews">리뷰 보기</a>
             <a href="">아무거나</a>
         </div>
     </div>

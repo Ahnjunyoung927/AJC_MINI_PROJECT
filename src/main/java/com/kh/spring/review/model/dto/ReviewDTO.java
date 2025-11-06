@@ -16,9 +16,9 @@ import lombok.ToString;
 public class ReviewDTO {
 		private int reviewNo;
 		private int memberNo;
-		private int createNo;
+		private int creatorNo;
 		private String reviewName;
 		private String reviewContent;
-		private Date reviewWriteDate;
+		private Date reviewDate;
 		private String reviewStatus;
 }

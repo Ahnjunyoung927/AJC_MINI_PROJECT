@@ -1,5 +1,6 @@
 package com.kh.spring.review.model.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -15,4 +16,6 @@ public interface ReviewService {
 	int deleteByReviewNo(int reviewNo);
 	
 	int update(ReviewDTO review);
+
+	List<ReviewDTO> getAllReviews();	
 }
