@@ -32,11 +32,14 @@ public class ReportController {
 		return "report/reports";
 	}
 	
+	/* 회원관리 하나의 페이지로 합침, 중간연결 과정 삭제
 	@GetMapping("handleM") // 관리자 페이지 중 회원 관리 페이지로
 	public String toHandleMember() {
 		return "report/handleM";
 	}
+	*/
 	
+	/* 미구현
 	@GetMapping("handleR") // 관리자 페이지 중 리뷰 관리 페이지로
 	public String toHandleReview() {
 		return "report/handleR";
@@ -46,13 +49,13 @@ public class ReportController {
 	public String toHandleYoutuber() {
 		return "report/handleY";
 	}
-	
+	*/
 	@GetMapping("updateM") // 
 	public String sendToRegistM() {
 		return "report/updateM";
 	}
 	
-	@ResponseBody // 반환값이 응답데이터이라고 알려줌
+	@ResponseBody 
 	@GetMapping(value="searchM", produces="application/json; charset=UTF-8")
 	public SearchedMemberDTO findMemberById(@RequestParam(name="userId") String userId) {
 		// log.info("사용자 입력값 : {}", userId);
@@ -61,10 +64,9 @@ public class ReportController {
 		return searchedMember;
 	}
 	
-	
 	@PostMapping("/updateEmail")
     public ResponseEntity<String> updateEmail(MemberDTO member) {
-		log.info("넘어옴? : {}", member);
+		// log.info("넘어옴? : {}", member);
         int result = memberService.updateEmail(member);
         return result > 0 ? ResponseEntity.ok("success") : ResponseEntity.badRequest().body("fail");
     }
@@ -84,7 +86,7 @@ public class ReportController {
 	
 	@PostMapping("/updateAdmin")
 	public ResponseEntity<String> updateAdmin(MemberDTO member) {
-		log.info("변경할 회원 관리자 권한 넘어되는지 : {}", member);
+		log.info("변경할 회원 관리자 권한 넘어오는지 : {}", member);
         int result = memberService.updateAdmin(member);
         return result > 0 ? ResponseEntity.ok("success") : ResponseEntity.badRequest().body("fail");
     }

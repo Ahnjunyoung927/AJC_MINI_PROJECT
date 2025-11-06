@@ -64,7 +64,7 @@
         </div>
         <hr>
         <div id="report-main-box">
-            <a href="${pageContext.request.contextPath}/reports/handleM" class="report-main" >
+            <a href="${pageContext.request.contextPath}/reports/updateM" class="report-main" >
             	<div >회원 관리</div>
             </a>
 

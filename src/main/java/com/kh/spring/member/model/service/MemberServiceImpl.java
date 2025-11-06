@@ -2,6 +2,7 @@ package com.kh.spring.member.model.service;
 
 import org.springframework.stereotype.Service;
 
+import com.kh.spring.exception.InvalidArgumentsException;
 import com.kh.spring.exception.UserIdNotFoundByAdminException;
 import com.kh.spring.member.model.dao.MemberMapper;
 import com.kh.spring.member.model.dto.MemberDTO;
@@ -20,7 +21,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public MemberDTO login(MemberDTO member) {
 		
-		MemberDTO loginMember = mapper.login(member); // memberRepository.login(sqlSession, member);
+		MemberDTO loginMember = mapper.login(member); 
 		log.info("DB로그인 정보 : {}", loginMember);
 		
 		return loginMember;
@@ -28,6 +29,13 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public SearchedMemberDTO findMemberById(String userId) {
+		// 유효성
+		
+		if(userId == null || userId.trim().isEmpty()) {
+			// log.info("예외처리되나?");
+			throw new InvalidArgumentsException("유효한 입력값이 아닙니다.");
+		}
+		
 		SearchedMemberDTO searchedMember = mapper.findMemberById(userId);
 		log.info("조회한 회원 정보 : {}", searchedMember);
 		if(searchedMember != null) {

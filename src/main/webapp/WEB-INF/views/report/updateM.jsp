@@ -28,6 +28,21 @@
 button {
 	border: 1px solid black;
 }
+#report-table{
+	border: 1px solid gray;
+	border-radius: 5px;
+	margin: auto;
+	margin-top: 10px;
+	width: 100%;
+}
+
+td {
+	border-top: 1px solid gray;
+	height : 25px;
+	width : 20%;
+	text-align: center;
+}
+
 </style>
 </head>
 
@@ -36,6 +51,33 @@ button {
 	<jsp:include page="../include/sidebar.jsp" />
 
 	<main class="content">
+	
+		<div>
+			<h2>신고 목록</h2>
+			<button style="border:1px solid black" onclick="findReportsByDate();"> 최신순 조회</button>
+			<button style="border:1px solid black"> 신고누적순 조회</button>
+			<table id="report-table" >
+				<thead>
+					<tr >
+						<th>아이디</th>
+						<th>신고분류</th>
+						<th>신고내용</th>
+						<th>신고일자</th>
+						<th>관리자 확인</th>
+					</tr>
+				</thead>
+			
+				<tbody>
+                    <tr>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+			</table>
+		</div>
 
 		<div>
 			<h2>회원 정보 조회</h2>
@@ -91,6 +133,13 @@ button {
 		let selectedMemberId = null; 
 	
 	function detail(){ 
+		const value = $("#detail").val();
+
+		if (!value || value.trim() === "" || value.trim().length > 40) {
+	        document.querySelector("#memberId").innerText = 
+	            value && value.trim().length > 40 ? "입력값은 40자 이하여야 합니다." : "입력값이 없습니다.";
+	        return;
+	    }
 		
 		$.ajax({ url : `${pageContext.request.contextPath}/reports/searchM`, 
 			    type : 'get', 
@@ -115,7 +164,7 @@ button {
 			    		document.querySelector("#updateAdminNButton").disabled = false; 
 			    		document.querySelector("#updateAdminYButton").disabled = false; }, 
 			    		
-			    	error : xhr => { 
+			    	error : err => { 
 			    		document.querySelector("#memberId").innerText = "조회된 정보가 없습니다."; 
 			    		document.querySelector("#email").innerText = "-"; 
 			    		document.querySelector("#phone").innerText = "-"; 
@@ -222,6 +271,8 @@ button {
 	            }
 	        });
 	    }
+		
+		
 		
 		</script>
 
