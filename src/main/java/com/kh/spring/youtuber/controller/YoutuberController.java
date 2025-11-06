@@ -1,10 +1,14 @@
 package com.kh.spring.youtuber.controller;
 
+import java.util.List;
+import java.util.Map; 
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.spring.youtuber.model.dto.YoutuberDTO;
 import com.kh.spring.youtuber.model.service.YoutuberService;
@@ -14,33 +18,70 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/youtuber")
-@RequiredArgsConstructor // final 필드(youtuberService)에 대한 생성자 주입
+@RequestMapping("/youtuber") 
+@RequiredArgsConstructor
 public class YoutuberController {
-	
-	// Service 주입
-	private final YoutuberService youtuberService;
-	
-	/**
-	 * list 페이지 경로지정 메소드 
-	 * @return "youtuber/list"
-	 */
-	@GetMapping("/list")
-	public String showListPage() {
-		// youtuber_list.jsp 파일을 보여줍니다.
-		return "youtuber/list";
-	}
-	
-	/**
-	 * 신규 유튜버 등록 폼 페이지로 이동
-	 */
-	@GetMapping("/add")
-	public String showAddForm() {
-		return "youtuber/creator_form";
-	}
-	
-	
 
-	
+    private final YoutuberService youtuberService;
+
+    /**
+     * 1. 유튜버 목록 페이지
+     * URL: /youtuber/list
+     */
+    @GetMapping("/list")
+    public String showListPage(@RequestParam(value = "page", defaultValue = "1") int page, Model model) {
+        
+        Map<String, Object> map = youtuberService.selectAllYoutubers(page);
+        
+        model.addAttribute("list", map.get("list"));
+        model.addAttribute("pi", map.get("pi"));
+        
+        return "youtuber/list"; 
+    }
+
+    /**
+     * 2. 유튜버 상세 페이지
+     * URL: /youtuber/detail?no=#{youtuberNo}
+     */
+    @GetMapping("/detail")
+    public String showYoutuberDetail(@RequestParam("no") int youtuberNo, Model model) {
+        
+        YoutuberDTO youtuber = youtuberService.selectYoutuberByNo(youtuberNo);
+
+        //리뷰랑 카테고리는?
+        model.addAttribute("youtuber", youtuber);
+
+        return "youtuber/youtuber_detail"; 
+    }
+    
+    /**
+     * 3. 유튜버 등록 폼 
+     * URL: /youtuber/add
+     */
+    @GetMapping("/add")
+    public String showCreatorForm() {
+        return "youtuber/creator_form"; 
+    }
+
+    /**
+     * 4. 유튜버 등록 처리 
+     * URL: /youtuber/add (POST)
+     */
+    @PostMapping("/add")
+    public String insertYouber(YoutuberDTO youtuber) {
+        youtuberService.insertCreator(youtuber);
+        return "redirect:/youtuber/list"; 
+    }
+
+    /**
+     * 5. 유튜버 랭킹 조회
+     * URL: /youtuber/rank
+     */
+    @GetMapping("/rank")
+    public String showByYoutuberRank(Model model) {
+        List<YoutuberDTO> youtubers = youtuberService.selectYouberByRank();
+        model.addAttribute("youtubers", youtubers);
+        return "main";
+    }
 
 }

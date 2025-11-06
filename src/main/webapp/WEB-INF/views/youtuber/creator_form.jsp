@@ -116,7 +116,7 @@
                 
                 <div class="form-group">
                     <label for="creatorName">유튜버 이름 (CREATOR_NAME):</label>
-                    <input type="text" id="creatorName" name="creatorName" placeholder="예: 개발자 코알라" required>
+                    <input type="text" id="creatorName" name="creatorName" placeholder="예: 승철티비" required>
                 </div>
                 
                 <div class="form-group">

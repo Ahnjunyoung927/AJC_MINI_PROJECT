@@ -83,7 +83,6 @@
 			</div>
 		</section>
 
-        <%-- ... (이하 동일) ... --%>
 		<section class="ranking-section">
 			<h3>실시간 리뷰 순위 (최근 리뷰, 좋아요 많이 달린 리뷰 고려)</h3>
 			<div class="ranking-container">
