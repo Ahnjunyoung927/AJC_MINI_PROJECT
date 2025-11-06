@@ -164,7 +164,7 @@ td {
 			    		document.querySelector("#updateAdminNButton").disabled = false; 
 			    		document.querySelector("#updateAdminYButton").disabled = false; }, 
 			    		
-			    	error : err => { 
+			    	error : err => {
 			    		document.querySelector("#memberId").innerText = "조회된 정보가 없습니다."; 
 			    		document.querySelector("#email").innerText = "-"; 
 			    		document.querySelector("#phone").innerText = "-"; 
