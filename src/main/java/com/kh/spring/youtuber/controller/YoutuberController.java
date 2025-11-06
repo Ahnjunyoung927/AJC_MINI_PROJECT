@@ -87,21 +87,4 @@ public class YoutuberController {
         
     }
 
-    /**
-     * 5. 유튜버 랭킹 조회
-     * @return: URL /youtuber/rank
-     */
-    @GetMapping("/rank")
-    public String showByYoutuberRank(Model model) {
-        List<YoutuberDTO> youtubers = youtuberService.selectYouberByRank();
-        model.addAttribute("youtubers", youtubers);
-        return "main";
-    }
-    
-
-    @ExceptionHandler(InvalidArgumentsException.class)
-    public String handleInvalidArguments(InvalidArgumentsException e, RedirectAttributes ra) {
-        return "redirect:/youtuber/list";
-
-    }
 }
