@@ -129,6 +129,12 @@
                     <input type="text" id="nationCode" name="nationCode" placeholder="예: KR (한국), US (미국), JP (일본)">
                 </div>
 
+                <%--
+                <div class="form-group">
+                    <label for="profileImage">프로필 사진:</label>
+                    <input type="file" id="profileImage" name="profileImage" accept="image/*" />
+                </div>
+                --%>
                 
                 <button style="color: blue" type="submit">유튜버 정보 등록하기</button>
             </form>

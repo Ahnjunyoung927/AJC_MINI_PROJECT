@@ -19,7 +19,7 @@ public interface YoutuberService {
      * @param youtuberNo
      * @return YoutuberDTO
      */
-    YoutuberDTO selectYoutuberByNo(int youtuberNo);
+    YoutuberDTO selectYoutuberByNo(Long youtuberNo);
 
     /**
      * 유튜버 랭킹 목록 조회

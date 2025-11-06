@@ -3,19 +3,18 @@ package com.kh.spring.youtuber.model.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class YoutuberDTO {
 	
-	private long youtuberNo;
-	private long subscribe;
+	private Long youtuberNo;
+	private Long subscribe;
     private String youtuberName;
 	
-	private long reviewCount;
-	private long bookmarkCount;
-	
+	private Long reviewCount;
+	private Long bookmarkCount;
 
 	private String nationCode;
 	

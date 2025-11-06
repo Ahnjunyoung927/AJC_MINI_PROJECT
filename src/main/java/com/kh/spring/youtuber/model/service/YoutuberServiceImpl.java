@@ -5,16 +5,20 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
+import org.springframework.dao.DataIntegrityViolationException; // 예외 처리를 위해 임포트
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.spring.exception.InvalidArgumentsException; // throw할 예외 임포트
 import com.kh.spring.util.PageInfo;
 import com.kh.spring.util.Pagination;
 import com.kh.spring.youtuber.model.dao.YoutuberMapper;
 import com.kh.spring.youtuber.model.dto.YoutuberDTO;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j // 로그 사용을 위해 추가
 @Service
 @RequiredArgsConstructor
 public class YoutuberServiceImpl implements YoutuberService {
@@ -54,8 +58,15 @@ public class YoutuberServiceImpl implements YoutuberService {
      * @return YoutuberDTO
      */
     @Override
-    public YoutuberDTO selectYoutuberByNo(int youtuberNo) {
-        return youtuberMapper.selectYoutuberByNo(youtuberNo);
+    public YoutuberDTO selectYoutuberByNo(Long youtuberNo) {
+    	
+    	YoutuberDTO youtuber = youtuberMapper.selectYoutuberByNo(youtuberNo);
+    	
+    	if(youtuber == null) {
+    		throw new InvalidArgumentsException("해당 번호의 유튜버를 찾을 수 없습니다: " + youtuberNo);
+    	}
+ 
+        return youtuber;
     }
     
     /**
@@ -76,6 +87,13 @@ public class YoutuberServiceImpl implements YoutuberService {
     @Override
     @Transactional
     public int insertCreator(YoutuberDTO youtuber) {
-        return youtuberMapper.insertCreator(youtuber);
+        
+        try {
+            return youtuberMapper.insertCreator(youtuber);
+
+        } catch (DataIntegrityViolationException e) {
+
+            throw new InvalidArgumentsException("이름 중복 또는 필수값 누락");
+        }
     }
 }

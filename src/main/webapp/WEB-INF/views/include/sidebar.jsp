@@ -19,23 +19,18 @@
 		<button type="button" class="sidebar-close">X</button>
 
 		<div class="side-logo">
-			<a href="${pageContext.request.contextPath}/index.jsp"> <img
 				src="" alt="로고">
 				<h3>유투버스코프</h3>
-			</a>
 		</div>
 
 		<div class="side-nav">
-			<a href="${pageContext.request.contextPath}/index.jsp">홈</a> <a
-				href="${pageContext.request.contextPath}/youtuber/list">유투버</a> <a
-				href="">리뷰</a> <a href="">아무거나</a>
+			<a href="${pageContext.request.contextPath}/">홈</a> 
+			<a href="${pageContext.request.contextPath}/youtuber/list">유투버</a> 
+			<a href="">리뷰</a> 
+			<a href="">아무거나</a>
 		</div>
 		</div>
 	</nav>
-
-
-
-
 
 </body>
 </html>

@@ -37,6 +37,7 @@ public class ExceptionHandlingController {
 	
 	@ExceptionHandler(InvalidArgumentsException.class)
 	protected ModelAndView invaildArgumentError(InvalidArgumentsException e) {
+		e.printStackTrace();
 		return createErrorResponse(e);
 	}
 	

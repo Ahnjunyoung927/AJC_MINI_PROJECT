@@ -12,12 +12,27 @@
 	href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
 
-<%-- 
+<%--
 <link rel="stylesheet" 
   href="${pageContext.request.contextPath}/resources/css/product/product_detail.css">
 <script 
   src="${pageContext.request.contextPath}/resources/js/product/product_detail.js"></script>
 --%>
+
+<!-- [추가] 클릭 가능하도록 스타일 추가 -->
+<style>
+	.ranking-item {
+		cursor: pointer;
+		border: 1px solid #eee;
+		padding: 10px;
+		margin-bottom: 10px;
+		border-radius: 5px;
+	}
+	.ranking-item:hover {
+		background-color: #f9f9f9;
+		border-color: #ccc;
+	}
+</style>
 
 </head>
 <body>
@@ -27,7 +42,6 @@
 	<main>
 		<h3>추천 유투버</h3>
 		<div class="swiper">
-        	<%-- ... (Swiper 내용은 동일) ... --%>
 			<div class="swiper-wrapper">
 				<div class="swiper-slide">
 					<img src="https://via.placeholder.com/600x250?text=Slide+1">
@@ -64,7 +78,8 @@
 					<c:when test="${not empty youtubers}">
 
 						<c:forEach var="yt" items="${youtubers}">
-							<div class="ranking-item">
+							<div class="ranking-item"
+								 onclick="location.href='${pageContext.request.contextPath}/youtuber/detail?no=${yt.youtuberNo}'">
 								<h4>${yt.youtuberName}</h4>
 								<p>구독자: ${yt.subscribe}</p>
 								<p>작성된 리뷰: ${yt.reviewCount}개</p>
@@ -75,7 +90,7 @@
 					</c:when>
 					<c:otherwise>
 						<div class="ranking-item">
-							<p>에~ 실패했지롱.</p>
+							<p>랭킹 정보를 불러오는 데 실패했습니다.</p>
 						</div>
 					</c:otherwise>
 				</c:choose>

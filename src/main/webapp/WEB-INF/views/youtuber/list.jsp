@@ -8,8 +8,6 @@
     <title>유투버 전체 목록</title>
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"/>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css"> 
-    
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     
     <style>
@@ -97,15 +95,15 @@
                 <p style="grid-column: 1 / -1; text-align: center;">조회된 유튜버가 없습니다.</p>
             </c:if>
 
-            <c:forEach var="y" items="${list}">
+            <c:forEach var="yt" items="${list}">
                 <div class="youtuber-card" 
-                     onclick="location.href='${pageContext.request.contextPath}/youtuber/detail?no=${y.youtuberNo}'">
+                     onclick="location.href='${pageContext.request.contextPath}/youtuber/detail?no=${yt.youtuberNo}'">
                     
-                    <img src="${pageContext.request.contextPath}/assets/images/default_profile.png" alt="기본 이미지" />
+                    <img src="" alt="기본 이미지" />
                     
-                    <h4>${y.youtuberName}</h4>
+                    <h4>${yt.youtuberName}</h4>
                     <p>카테고리: (미정)</p>
-                    <p>구독자: ${y.subscribe} 명</p>
+                    <p>구독자: ${yt.subscribe} 명</p>
                 </div>
             </c:forEach>
 

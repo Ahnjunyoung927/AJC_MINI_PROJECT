@@ -8,26 +8,34 @@
 <title>${youtuber.youtuberName} 상세 정보 및 리뷰</title>
 
 <style>
-    /* ... (이전에 제공해주신 스타일 코드와 동일) ... */
-    
-    /* 기본 설정 */
+
     body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f0f0; color: #333333; margin: 0; }
     main { padding: 40px 20px; display: flex; flex-direction: column; align-items: center; }
     h2 { color: #1a1a1a; margin-bottom: 30px; font-weight: 700; border-bottom: 2px solid #ccc; padding-bottom: 10px; }
-
-    /* 유튜버 상세 정보 섹션 */
     .creator-detail-container { width: 100%; max-width: 900px; background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); display: flex; gap: 30px; margin-bottom: 50px; align-items: flex-start; }
-    .creator-profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid #1a1a1a; flex-shrink: 0; }
+    .creator-profile-img { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid #1a1a1a; flex-shrink: 0; background-color: #eee; }
     .creator-info { flex-grow: 1; }
     .creator-info h3 { font-size: 28px; margin: 0 0 10px 0; color: #1a1a1a; }
     .creator-info p { margin: 5px 0; font-size: 16px; color: #555; }
     .info-label { font-weight: 600; color: #333; display: inline-block; width: 90px; }
-    
-    /* 리뷰 섹션 제목 */
     h3.review-section-title { width: 100%; max-width: 900px; text-align: left; color: #1a1a1a; border-bottom: 1px solid #ddd; padding-bottom: 10px; margin-bottom: 30px; }
-    
-    /* (이하 생략 - 제공해주신 CSS 코드) */
-    
+    .review-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; width: 100%; max-width: 900px; margin-bottom: 50px; }
+    .review-card { background: #ffffff; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); border: 1px solid #eee; transition: transform 0.2s; }
+    .review-card:hover { transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); }
+    .review-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px; margin-bottom: 15px; }
+    .channel-info { display: flex; align-items: center; }
+    .channel-icon { width: 40px; height: 40px; border-radius: 50%; margin-right: 10px; object-fit: cover; background-color: #eee; }
+    .channel-name { font-size: 18px; margin: 0; font-weight: 600; }
+    .reviewer { font-size: 14px; color: #888; margin: 0; }
+    .like-btn { background: none; border: 1px solid #ccc; color: #333; padding: 5px 10px; border-radius: 4px; cursor: pointer; transition: background-color 0.2s, border-color 0.2s; }
+    .like-btn:hover { background-color: #f0f0f0; border-color: #333; }
+    .review-content p { font-size: 15px; line-height: 1.6; margin-bottom: 15px; }
+    .review-tags span { display: inline-block; background-color: #e0e0e0; color: #555; padding: 3px 8px; border-radius: 15px; font-size: 12px; margin-right: 5px; margin-top: 5px; }
+    .review-date { font-size: 12px; color: #aaa; margin-top: 15px; text-align: right; }
+    .review-form-area { width: 100%; max-width: 900px; background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); margin-bottom: 50px; }
+    .review-form-area textarea { width: 98%; height: 100px; padding: 10px; border: 1px solid #ccc; border-radius: 6px; resize: none; margin-bottom: 10px; }
+    .review-form-area button { width: 150px; padding: 10px 15px; background-color: #1a1a1a; color: #ffffff; border: 1px solid #1a1a1a; border-radius: 6px; cursor: pointer; font-size: 14px; float: right; }
+    .review-form-area button:hover { background-color: #333333; }
 </style>
 </head>
 <body>
@@ -43,7 +51,7 @@
                 <div class="creator-detail-container">
                     
                     <img 
-                        src="" 
+                        src="" <%-- src="${not empty youtuber.profileImg ? youtuber.profileImg : pageContext.request.contextPath.concat('/assets/images/default_profile.png')}" --%>
                         alt="${youtuber.youtuberName} 프로필 이미지" 
                         class="creator-profile-img"
                     />
@@ -115,10 +123,10 @@
                         <article class="review-card">
                             <div class="review-header">
                                 <div class="channel-info">
-                                    <img src="${pageContext.request.contextPath}/assets/images/user_icon.png" alt="리뷰어 아이콘" class="channel-icon" />
+                                    <%-- <img src="${pageContext.request.contextPath}/assets/images/user_icon.png" alt="리뷰어 아이콘" class="channel-icon" /> --%>
                                     <div>
                                         <h3 class="channel-name">${review.reviewName}</h3>
-                                        <p class="reviewer">${review.reviewerId != null ? review.reviewerId : 익명}</p>
+                                        <p class="reviewer">${review.reviewerId != null ? review.reviewerId : "익명"}</p>
                                     </div>
                                 </div>
                                 <button class="like-btn">

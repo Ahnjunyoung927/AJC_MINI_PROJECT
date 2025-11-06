@@ -5,12 +5,14 @@ import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.spring.exception.InvalidArgumentsException;
 import com.kh.spring.youtuber.model.dto.YoutuberDTO;
 import com.kh.spring.youtuber.model.service.YoutuberService;
 
@@ -19,11 +21,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/youtuber") 
+@RequestMapping("/youtuber")
 @RequiredArgsConstructor
 public class YoutuberController {
 
     private final YoutuberService youtuberService;
+
 
     /**
      * 1. 유튜버 목록 페이지
@@ -37,7 +40,7 @@ public class YoutuberController {
         model.addAttribute("list", map.get("list"));
         model.addAttribute("pi", map.get("pi"));
         
-        return "youtuber/list"; 
+        return "youtuber/list";
     }
 
     /**
@@ -45,23 +48,22 @@ public class YoutuberController {
      * @return: URL /youtuber/detail?no=#{youtuberNo}
      */
     @GetMapping("/detail")
-    public String showYoutuberDetail(@RequestParam("no") int youtuberNo, Model model) {
-        
+    public String showYoutuberDetail(@RequestParam("no") Long youtuberNo, Model model) {
+        log.info("머임?{}", youtuberNo);
         YoutuberDTO youtuber = youtuberService.selectYoutuberByNo(youtuberNo);
 
-        //리뷰랑 카테고리는?
         model.addAttribute("youtuber", youtuber);
 
-        return "youtuber/youtuber_detail"; 
+        return "youtuber/youtuber_detail";
     }
     
     /**
-     * 3. 유튜버 등록 폼 
+     * 3. 유튜버 등록 폼 출력 
      * @return: URL /youtuber/add
      */
     @GetMapping("/add")
     public String showCreatorForm() {
-        return "youtuber/creator_form"; 
+        return "youtuber/creator_form";
     }
 
     /**
@@ -69,18 +71,20 @@ public class YoutuberController {
      * @return: URL /youtuber/add
      */
     @PostMapping("/add")
-    public String insertYouber( @RequestParam("creatorName") String creatorName,
-					            @RequestParam("subscrCount") int subscrCount, 
-					            @RequestParam("nationCode") String nationCode,
-					            YoutuberDTO youtuber) {
-    	
-        youtuber.setYoutuberName(creatorName);
-        youtuber.setSubscribe(subscrCount); 
-        youtuber.setNationCode(nationCode);
- 
-        youtuberService.insertCreator(youtuber);
+    public String insertYouber(
+            @RequestParam("creatorName") String creatorName,
+            @RequestParam("subscrCount") Long subscrCount,
+            @RequestParam("nationCode") String nationCode
+    ) {
         
+        YoutuberDTO youtuber = new YoutuberDTO();
+        youtuber.setYoutuberName(creatorName);
+        youtuber.setSubscribe(subscrCount);
+        youtuber.setNationCode(nationCode);
+        
+        youtuberService.insertCreator(youtuber);
         return "redirect:/youtuber/list";
+        
     }
 
     /**
@@ -93,5 +97,11 @@ public class YoutuberController {
         model.addAttribute("youtubers", youtubers);
         return "main";
     }
+    
 
+    @ExceptionHandler(InvalidArgumentsException.class)
+    public String handleInvalidArguments(InvalidArgumentsException e, RedirectAttributes ra) {
+        return "redirect:/youtuber/list";
+
+    }
 }

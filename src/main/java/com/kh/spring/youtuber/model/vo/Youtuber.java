@@ -11,7 +11,7 @@ public class Youtuber {
 	
 	private Long youtuberNo;
 	private String youtuberName;
-	private int subscribe;
+	private Long subscribe;
 	private String status;
 	private String field;
 	private String category;

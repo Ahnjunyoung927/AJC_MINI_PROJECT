@@ -15,12 +15,11 @@
 	<header>
     <div class="header-main">
         <div class="header-left">
-            <a class="logo" href="index.jsp">LOGO</a>
             <button id="sidebar-toggle">사이드바 토글</button>
         </div>
         
         <div class="header-center">
-            <h1 class="home">유투버 스코프</h1>
+            <h1 class="home">  <a class="logo" href="${pageContext.request.contextPath}/"></a> 유투버 스코프</h1>
         </div>
 
         <div class="header-right">
