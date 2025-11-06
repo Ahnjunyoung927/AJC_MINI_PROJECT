@@ -22,11 +22,28 @@
         <div class="header-center">
             <h1 class="home">유투버 스코프</h1>
         </div>
-
+		
+		
+		<c:choose>
+		
+		<c:when test="${ empty sessionScope.loginMember }">
         <div class="header-right">
-            <button id="login">로그인</button>
+            <button id="login" onclick="window.location.href='${pageContext.request.contextPath}/members/loginForm'">로그인</button>
             <button id="enroll">회원가입</button>
         </div>
+        
+        </c:when>
+        
+        <c:otherwise>
+        <div class="header-right">
+            <button id="login">로그아웃</button>
+            <button id="enroll">내 정보</button>
+        </div>
+        </c:otherwise>
+        
+        </c:choose>
+        
+        
     </div>
 	</header>
 

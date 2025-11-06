@@ -13,12 +13,12 @@
 </head>
 <body>
     
-    <!-- 메뉴바 -->
     <jsp:include page="../include/header.jsp" />
+	<jsp:include page="../include/sidebar.jsp" />
 
 
 
-    <!-- 푸터바 -->
+
     <jsp:include page="../include/footer.jsp" />
 
 </body>

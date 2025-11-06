@@ -59,6 +59,18 @@ h1, h3, h4 {
     font-weight: bold;
 }
 
+/* ---   푸터  --- */
+.footer-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align : center;
+    padding: 15px 25px;
+    border-bottom: 1px solid #ddd; 
+    background-color: #fafafa;
+    height : 100px;
+}
+
 /* --- 사이드바 --- */
 .sidebar-overlay {
     display: none;
@@ -206,3 +218,7 @@ main h3 {
     margin-top: 10px;
     font-size: 14px;
 }
+
+
+
+
